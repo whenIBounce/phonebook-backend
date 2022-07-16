@@ -1,8 +1,11 @@
 const { application } = require('express')
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express()
 
 app.use(express.json())
+app.use(morgan('tiny'))
 /* The json-parser functions 
 so that it takes the JSON data of a request, 
 transforms it into a JavaScript object 
