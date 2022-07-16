@@ -5,7 +5,14 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
-app.use(morgan('tiny'))
+
+//define morgan token
+morgan.token('req-body', (req, res) => JSON.stringify(req.body))
+app.use(
+  morgan(
+    ':method :url :status :res[content-length] - :response-time ms :req-body'
+  )
+)
 /* The json-parser functions 
 so that it takes the JSON data of a request, 
 transforms it into a JavaScript object 
