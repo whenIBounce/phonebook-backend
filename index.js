@@ -1,6 +1,7 @@
 const { application } = require('express')
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express()
 
@@ -19,6 +20,8 @@ transforms it into a JavaScript object
 and then attaches it 
 to the body property of the request object
 before the route handler is called */
+app.use(cors())
+app.use(express.static('build'))
 
 let persons = [
   {
