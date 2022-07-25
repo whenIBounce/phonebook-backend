@@ -26,3 +26,12 @@ Content-Type: application/json
 	"name": "Arto Hellas" ,
 	"number" : "123-1233332"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "Arto Hellas" ,
+	"number" : "999-999999"
+}
