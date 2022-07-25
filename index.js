@@ -25,6 +25,21 @@ before the route handler is called */
 app.use(cors())
 app.use(express.static('build'))
 
+app.get('/api/persons', (req, res, next) => {
+  Person.find({}).then(people => {res.json(people)}).catch(err => next(err))
+})
+
+app.get('/info', (req, res, next) => {
+  const date = new Date()
+  Person.find({}).then(people => {
+    console.log(people)
+    let numOfPeople = people.length
+    const info = `Phonebook has info for ${numOfPeople} people`
+    const content = `<p> ${info}</p> <p>${date}</p> `
+    res.send(content)
+  })
+  .catch(err => next(err))
+})
 
 app.get('/api/persons', (req, res, next) => {
   Person
