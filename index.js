@@ -25,56 +25,44 @@ before the route handler is called */
 app.use(cors())
 app.use(express.static('build'))
 
-let persons = [
-  {
-    id: 1,
-    name: 'Arto Hellas',
-    number: '040-123456',
-  },
-  {
-    id: 2,
-    name: 'Ada Lovelace',
-    number: '39-44-5323523',
-  },
-  {
-    id: 3,
-    name: 'Dan Abramov',
-    number: '12-43-234345',
-  },
-  {
-    id: 4,
-    name: 'Mary Poppendieck',
-    number: '39-23-6423122',
-  },
-]
 
-app.get('/api/persons', (req, res) => {
-  Person.find({}).then(people => {res.json(people)})
+app.get('/api/persons', (req, res, next) => {
+  Person
+  .find({})
+  .then(people => {res.json(people)})
+  .catch(err => next(err))
 })
 
-app.get('/info', (req, res) => {
+app.get('/info', (req, res, next) => {
   const date = new Date()
-  Person.find({}).then(people => {
-    console.log(people)
-    let numOfPeople = people.length
+  Person
+  .find({})
+  .then(people => {
+    const numOfPeople = people.length
     const info = `Phonebook has info for ${numOfPeople} people`
     const content = `<p> ${info}</p> <p>${date}</p> `
     res.send(content)
   })
+  .catch(err => next(err))
 })
 
-app.get('/api/persons/:id', (req, res) => {
-  Person.findById(req.params.id).then(person => {
+app.get('/api/persons/:id', (req, res, next) => {
+  Person
+  .findById(req.params.id)
+  .then(person => {
     res.json(person)
   })
+  .catch(err => next(err))
 })
 
-app.delete('/api/persons/:id', (req, res) => {
-  Person.findByIdAndRemove(req.params.id)
+app.delete('/api/persons/:id', (req, res, next) => {
+  Person
+  .findByIdAndRemove(req.params.id)
   .then(result => res.status(204).end())
+  .catch(err => next(err))
 })
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
   //const nameExisted = persons.find((p) => p.name === body.name)
 
@@ -92,12 +80,26 @@ app.post('/api/persons', (req, res) => {
       number: body.number,
     })    
     
-    newPerson.save().then(addedPerson => {
+    newPerson
+    .save()
+    .then(addedPerson => {
       console.log(`${addedPerson.name} added`)
       res.json(addedPerson)
     })
+    .catch(err => next(err))
   }
 })
+
+const errorHandler = (err, req, res, next) => {
+  console.log(err.message)
+
+  if (err.name === 'CastError'){
+    return res.status(400).send({err: 'malformatted id'})
+  }
+
+  next(err)
+}
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

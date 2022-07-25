@@ -1,4 +1,4 @@
-DELETE http://localhost:3001/api/persons/62de6b9a5082a356c5393e70
+DELETE http://localhost:3001/api/persons/99999999
 
 ###
 POST http://localhost:3001/api/persons
