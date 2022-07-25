@@ -41,26 +41,6 @@ app.get('/info', (req, res, next) => {
   .catch(err => next(err))
 })
 
-app.get('/api/persons', (req, res, next) => {
-  Person
-  .find({})
-  .then(people => {res.json(people)})
-  .catch(err => next(err))
-})
-
-app.get('/info', (req, res, next) => {
-  const date = new Date()
-  Person
-  .find({})
-  .then(people => {
-    const numOfPeople = people.length
-    const info = `Phonebook has info for ${numOfPeople} people`
-    const content = `<p> ${info}</p> <p>${date}</p> `
-    res.send(content)
-  })
-  .catch(err => next(err))
-})
-
 app.get('/api/persons/:id', (req, res, next) => {
   Person
   .findById(req.params.id)
@@ -79,16 +59,12 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons', (req, res, next) => {
   const body = req.body
-  //const nameExisted = persons.find((p) => p.name === body.name)
 
   if (!body.name || !body.number) {
     return res.status(400).json({
       error: 'name or number missing',
     })
-  } /* else if (nameExisted) {
-    return res.status(400).json({
-      error: 'name must be unique',
-    }) */
+  } 
   else {
     const newPerson = new Person({
       name: body.name,
