@@ -1,7 +1,9 @@
+require('dotenv').config()
 const { application } = require('express')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
 
 const app = express()
 
@@ -47,28 +49,24 @@ let persons = [
 ]
 
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
-  /* Calling the method will send the notes array 
-  that was passed to it as a JSON formatted string. 
-  Express automatically sets the Content-Type header 
-  with the appropriate value of application/json. */
+  Person.find({}).then(people => {res.json(people)})
 })
 
 app.get('/info', (req, res) => {
   const date = new Date()
-  const info = `Phonebook has info for ${persons.length} people`
-  const content = `<p> ${info}</p> <p>${date}</p> `
-  res.send(content)
+  Person.find({}).then(people => {
+    console.log(people)
+    let numOfPeople = people.length
+    const info = `Phonebook has info for ${numOfPeople} people`
+    const content = `<p> ${info}</p> <p>${date}</p> `
+    res.send(content)
+  })
 })
 
 app.get('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const person = persons.find((p) => p.id === id)
-  if (person) {
+  Person.findById(req.params.id).then(person => {
     res.json(person)
-  } else {
-    res.status(404).end()
-  }
+  })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
