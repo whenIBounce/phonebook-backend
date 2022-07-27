@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const url = process.env.MONGODB_URI
 
 const personSchema = new mongoose.Schema({
-	name: String,
+	name: {type: String, minLength: 3, required: true},
 	number: String,
   })
 

@@ -43,3 +43,30 @@ Content-Type: application/json
 	"name": "Arto Hellas" ,
 	"number" : "999-999999"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "to" ,
+	"number" : "999-999999"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "long enough name" ,
+	"number" : "999-999999"
+}
+
+###
+PUT http://localhost:3001/api/persons/62e0c647623dd47bb6655785
+Content-Type: application/json 
+
+{
+	"name": "nl" ,
+	"number" : "999-999999"
+}
