@@ -70,3 +70,40 @@ Content-Type: application/json
 	"name": "nl" ,
 	"number" : "999-999999"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "wuhu" ,
+	"number" : "999-999999"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "test invalid number" ,
+	"number" : "aaa-aaa"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "test: add invalid number" ,
+	"number" : "09-1236"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json 
+
+{
+	"name": "test: add valid number" ,
+	"number" : "999-999999"
+}
+

@@ -62,15 +62,24 @@ app.post('/api/persons', (req, res, next) => {
   const newPerson = new Person({
     name: body.name,
     number: body.number,
-  })    
-  
-  newPerson
-  .save()
-  .then(addedPerson => {
-    console.log(`${addedPerson.name} added`)
-    res.json(addedPerson)
   })
-  .catch(err => next(err))
+  
+  Person
+  .find({})
+  .then(people => {
+    const existed = people.find((element) => element.name === body.name)
+    if(existed){
+      throw new Error(`${existed.name} already in phonebook, please add another name`)
+    }else{
+      newPerson
+      .save()
+      .then(addedPerson => {
+        console.log(`${addedPerson.name} added`)
+        res.json(addedPerson)
+      })
+      .catch(err => next(err))
+    }
+  }).catch(err => next(err))
  })
 
 app.put('/api/persons/:id', (req, res, next) => {
@@ -93,8 +102,9 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).send({err: 'malformatted id'})
   }else if(err.name === 'ValidationError'){
     return res.status(400).send({err: err.message})
+  }else if(err.name === 'Error'){
+    return res.status(400).send({err: err.message})
   }
-
   next(err)
 }
 app.use(errorHandler)
