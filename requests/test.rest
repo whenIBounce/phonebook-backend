@@ -1,11 +1,11 @@
 DELETE http://localhost:3001/api/persons/62de570f92173d62a0909737
 
 ###
-PUT http://localhost:3001/api/persons/62de570f92173d62a0909737
+PUT http://localhost:3001/api/persons/62e12e879629513863a5c216
 Content-Type: application/json 
 
 {
-	"name": "humble hugu",
+	"name": "test",
 	"number" : "999999"
 }
 ###		
