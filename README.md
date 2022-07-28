@@ -25,13 +25,6 @@ This immediately has the prospect of being problematic for users attempting to i
 But while the core of HTTP itself is stateless, **HTTP cookies allow the use of stateful sessions**. 
 
 Using *header* extensibility, HTTP Cookies are added to the workflow, allowing session creation on each HTTP request to share the same context, or the same state.
-
-### Three main purposes of cookies?
-   - Session management: Logins, shopping carts, game scores, or anything else the server should remember
-
-   - Personalization: User preferences, themes, and other settings
-
-   - Tracking: Recording and analyzing user behavior
 ### Creating cookies
 - After receiving an HTTP request, a server can send one or more `Set-Cookie` headers with the response. 
 			
@@ -56,6 +49,11 @@ Using *header* extensibility, HTTP Cookies are added to the workflow, allowing s
 Another approach to storing data in the browser is the Web Storage API.
 	
 The `window.sessionStorage` and `window.localStorage` properties correspond to session and permanent cookies in duration, but have larger storage limits than cookies, and are never sent to a server. 
-	
+
+## Cross-Origin Resource Sharing
+
+<img src="/en-US/docs/Web/HTTP/CORS/simple-req.png" alt="CORS example">
+
+
 
 
