@@ -1,3 +1,4 @@
+Table of Contents:
 - [Part 3](#part-3)
 	- [The Phonebook project (a Node app)](#the-phonebook-project-a-node-app)
 		- [What is this Node application used for?](#what-is-this-node-application-used-for)
