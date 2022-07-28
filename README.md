@@ -182,6 +182,9 @@ Unlike JavaScript objects, the **fields in a BSON document are ordered**. When c
 In addition to defining data records, MongoDB uses the document structure throughout, including but not limited to: *query filters, update specifications documents, and index specification documents*.
 
 ### Mongoose
+Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
+
+<img src="https://cdn-media-1.freecodecamp.org/images/0*b5piDNW1dqlkJWKe." alt="Object Mapping between Node and MongoDB managed via Mongoose">
 
 #### Mongoose Schema
 
