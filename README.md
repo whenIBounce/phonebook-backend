@@ -16,14 +16,14 @@
 			- [Why shall we uss Express?](#why-shall-we-uss-express)
 			- [What is Express?](#what-is-express)
 			- [What is Middleware?](#what-is-middleware)
-				- [Definition: Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle.](#definition-middleware-functions-are-functions-that-have-access-to-the-request-object-req-the-response-object-res-and-the-next-middleware-function-in-the-applications-request-response-cycle)
-				- [Middleware functions can perform the following tasks:](#middleware-functions-can-perform-the-following-tasks)
-				- [The next middleware function is commonly denoted by a variable named `next`. If `next` was called without a parameter, then the execution would simply move onto the next route or middleware. If the next function is called with a parameter, then the execution will continue to the error handler middleware.](#the-next-middleware-function-is-commonly-denoted-by-a-variable-named-next-if-next-was-called-without-a-parameter-then-the-execution-would-simply-move-onto-the-next-route-or-middleware-if-the-next-function-is-called-with-a-parameter-then-the-execution-will-continue-to-the-error-handler-middleware)
+				- [Definition](#definition)
+				- [Middleware functions](#middleware-functions)
+				- [`next`.](#next)
 			- [Middlewares We have used in Part 3](#middlewares-we-have-used-in-part-3)
 	- [MongoDB and Mongoose](#mongodb-and-mongoose)
 		- [MongoDB](#mongodb)
-			- [collections](#collections)
-			- [documents](#documents)
+			- [Collections](#collections)
+			- [Documents](#documents)
 		- [Mongoose](#mongoose)
 			- [Mongoose Schema](#mongoose-schema)
 			- [Mongoose Models](#mongoose-models)
@@ -114,15 +114,19 @@ Express offers a more pleasing interface to work with the built-in http module.
 #### What is Express?
 Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.
 #### What is Middleware?
-##### Definition: Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. 
+##### Definition
 
-##### Middleware functions can perform the following tasks:
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. 
+
+##### Middleware functions
    - Execute any code.
    - Make changes to the request and the response objects.
    - End the request-response cycle.
    - Call the next middleware function in the stack.
 
-##### The next middleware function is commonly denoted by a variable named `next`. If `next` was called without a parameter, then the execution would simply move onto the next route or middleware. If the next function is called with a parameter, then the execution will continue to the error handler middleware.
+##### `next`. 
+
+If `next` was called without a parameter, then the execution would simply move onto the next route or middleware. If the next function is called with a parameter, then the execution will continue to the error handler middleware.
 
 #### Middlewares We have used in Part 3
 ```
@@ -131,6 +135,7 @@ app.use(express.static('build'))
 ````
 ## Heroku
 1. Deploy the app:
+   
    When you create an app, a git remote (called heroku) is also created and associated with your local git repository.
 	<pre class=" language-term"><code class=" language-term"><span class="token input"><span class="token prompt">$ </span>heroku create phonebook</span>
 	Creating phonebook... done, stack is heroku-18
@@ -139,9 +144,7 @@ app.use(express.static('build'))
 	</code></pre>
 2. Define a Procfile
 
-	Use a Procfile, a text file in the root directory of your application, to explicitly declare what command should be executed to start your app.
-
-	The Procfile in the example app you deployed looks like this:
+	Use a Procfile, in the root directory of your application, to explicitly declare what command should be executed to start your app. An exmaple looks like this:
 	```
 	web: npm start
     ```
@@ -161,39 +164,34 @@ app.use(express.static('build'))
 
 	Heroku lets you externalize configuration - storing data such as encryption keys or external resource addresses in config vars.
 
-	<pre class=" language-term"><code class=" language-term"><span class="token input"><span class="token prompt">$ </span>heroku config:set TIMES=2</span>
+	<pre class=" language-term"><code class=" language-term"><span class="token input"><span class="token prompt">$ </span>heroku config:set 	MONGODB_URI=...</span>
 	</code></pre>
-
 	At runtime, config vars are exposed as environment variables to the application.
 ## MongoDB and Mongoose
 ### MongoDB
 
-#### collections
+#### Collections
 
-MongoDB stores data records as documents (specifically BSON documents) which are gathered together in collections. A database stores one or more collections of documents.
+A database stores one or more collections of documents.
 
-#### documents
+#### Documents
 MongoDB stores data records as BSON documents. BSON is a binary representation of JSON documents, though it contains more data types than JSON.
 
-Unlike JavaScript objects, the fields in a BSON document are ordered.
+Unlike JavaScript objects, the **fields in a BSON document are ordered**. When comparing documents, field ordering is significant.
 
-When comparing documents, field ordering is significant.
-
-In addition to defining data records, MongoDB uses the document structure throughout, including but not limited to: query filters, update specifications documents, and index specification documents
+In addition to defining data records, MongoDB uses the document structure throughout, including but not limited to: *query filters, update specifications documents, and index specification documents*.
 
 ### Mongoose
 
 #### Mongoose Schema
 
-Everything in Mongoose starts with a Schema. Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+*Everything in Mongoose starts with a Schema*. Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
 #### Mongoose Models
-Models are fancy constructors compiled from Schema definitions. An instance of a model is called a document. Models are responsible for creating and reading documents from the underlying MongoDB database.
+Models are fancy **constructors** compiled from Schema definitions. An instance of a model is called a document. Models are responsible for creating and reading documents from the underlying MongoDB database.
 
 #### SchemaType
 
-You can think of a Mongoose schema as the configuration object for a Mongoose model. 
-
-A SchemaType is then a configuration object for an individual property. 
+You can think of a Mongoose schema as the configuration object for a Mongoose model. **A SchemaType is then a configuration object for an individual property**. 
 
 A SchemaType says what type a given path should have, whether it has any getters/setters, and what values are valid for that path.
 
